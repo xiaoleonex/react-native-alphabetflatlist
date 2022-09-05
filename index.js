@@ -47,7 +47,8 @@ export default class AlphabetFlatList extends Component {
 
   static defaultProps = {
     viewabilityConfig: {
-      itemVisiblePercentThreshold: 100,
+      minimumViewTime: 150,
+      itemVisiblePercentThreshold: 15,
     },
     keyExtractor: (item, index) => index.toString(),
     mainFlatListContainerStyle: {},
@@ -177,8 +178,9 @@ export default class AlphabetFlatList extends Component {
           ]}
         >
           <FlatList
+            decelerationRate='fast'
             ref={ref => (this._mainList = ref)}
-            scrollEventThrottle={16}
+            scrollEventThrottle={0}
             onViewableItemsChanged={this.onViewableItemsChanged}
             extraData={this.props}
             getItemLayout={this.props.getItemLayout}
@@ -195,6 +197,7 @@ export default class AlphabetFlatList extends Component {
           ]}
         >
           <FlatList
+            decelerationRate='fast'
             ref={ref => (this._alphaList = ref)}
             data={this.state.alphabetList}
             renderItem={this.renderAlphabetItem}
